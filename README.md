@@ -33,7 +33,7 @@ browse to the project folder and select open, then install any missing android s
 #### [Android Architecture Component MVVM(Model-View ViewModel)](https://developer.android.com/topic/libraries/architecture)
  Android architecture components are a collection of libraries that help you design robust, testable, and maintainable apps.
 
-# Libraries used and why:
+## Libraries used and why:
 
 #### [Paging Library](https://developer.android.com/topic/libraries/architecture/paging)
 To load data small chunks of data a time, rather than load all data at once
