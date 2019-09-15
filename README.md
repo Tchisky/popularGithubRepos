@@ -1,4 +1,4 @@
-Overiew:
+Overview of the app
 
 	Android app that list all popular GitHub repositories, lists name, description, stars, owner name and owner avatar related to each repository.
 
