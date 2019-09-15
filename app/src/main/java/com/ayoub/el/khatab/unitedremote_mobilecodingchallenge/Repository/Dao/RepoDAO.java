@@ -21,9 +21,6 @@ public interface RepoDAO {
     @Query("DELETE FROM repository")
     void deleteAllRepos();
 
-    @Query("SELECT COUNT(*) FROM repository")
-    int checkCacheRowsCount();
-
     @Query("SELECT * FROM repository ORDER BY stars DESC")
     DataSource.Factory<Integer, Repo> getAllReposPaged();
 
