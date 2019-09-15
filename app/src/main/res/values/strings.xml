@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">United Remote - mobile coding challenge</string>
+    <string name="trending">Trending</string>
+    <string name="settings">Settings</string>
+    <string name="trending_repos">Trending Repos</string>
+    <string name="setting">Settings</string>
+    <string name="no_items_per_page">No. items per page</string>
+    <string name="clear_cache">Clear cache</string>
+</resources>
