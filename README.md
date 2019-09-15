@@ -1,9 +1,11 @@
 Overview of the app
+===
 
 Android app that list all popular GitHub repositories, lists name, description, stars, owner name and owner avatar related to each repository.
 
 
 Technologies/Libraries used and why:
+===
 
 - Android Architecture Component MVVM:		more rebust code, and better structure
 	- Paging Library:							to load data small chunks of data a time, rather than load all data at once
@@ -18,12 +20,14 @@ Technologies/Libraries used and why:
 	- Fragment 									To make UI components independent of each other(mainly for trending repos page and settings page)
 
 How it works:
+===
 	
 first at start of the app, it checks whether there is cached data in the local room database, if there is some, the it loads it N item per page, if no data is cached in the database then, it checks if there is an active internet connection to retrieve data from the GitHub API, if so them it makes network requests using Volley to get data, but before each request the page number that will be passed to the API is inceremented, then each request retrieves 30 item per page, each request is delayed by 1000 ms(1 second) to avoid getting blocked by the API, the data received is immediately inserted into the database, since we have liveData watching and listening on any changes on the database, it immediately loads it as PagedList into PagedListAdapter which handle displaying data in RecyclerView.
 	Trending repos page is a fragment as well as the settings.
 
 
 Features:
+===
 
 - the more you scroll the more data is loaded
 - swipe each item left or right to delete
@@ -32,6 +36,7 @@ Features:
 - change how many items to load per page from the local cache
 
 Project Structure:
+===
 
 - Model:								// contains the repository class and its builder
 - Repo.java 						// repository class
