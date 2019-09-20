@@ -19,7 +19,12 @@ public class Repo {
 
     private String ownerAvatar;
 
-    public Repo(int id, String name, String description, int stars, String ownerName, String ownerAvatar) {
+    public Repo(int id,
+                String name,
+                String description,
+                int stars,
+                String ownerName,
+                String ownerAvatar) {
         this.id = id;
         this.name = name;
         this.description = description;

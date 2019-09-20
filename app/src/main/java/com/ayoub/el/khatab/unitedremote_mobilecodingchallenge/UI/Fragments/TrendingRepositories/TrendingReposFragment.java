@@ -40,11 +40,14 @@ public class TrendingReposFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         context = container.getContext();
 
-        View rootView = LayoutInflater.from(context).inflate(R.layout.fragment_trending_repos, container, false);
+        View rootView = LayoutInflater.from(context)
+                .inflate(R.layout.fragment_trending_repos, container, false);
 
         unbinder = ButterKnife.bind(this, rootView);
 
@@ -95,7 +98,9 @@ public class TrendingReposFragment extends Fragment {
     ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0,
             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
         @Override
-        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+        public boolean onMove(@NonNull RecyclerView recyclerView,
+                              @NonNull RecyclerView.ViewHolder viewHolder,
+                              @NonNull RecyclerView.ViewHolder target) {
             return false;
         }
 

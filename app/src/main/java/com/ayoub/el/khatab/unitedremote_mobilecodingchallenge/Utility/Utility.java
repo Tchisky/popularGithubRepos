@@ -22,10 +22,14 @@ public class Utility {
      * ========================== GitHubService API constants ========================
      */
     public static final String TAG_GET = "VOLLEY_GET";
-    public static final String BASE_URL = "https://api.github.com/search/repositories?q=created:>2017-10-22&sort=stars&order=desc&page=";
+    public static final String BASE_URL =
+            "https://api.github.com/search/repositories" +
+                    "?q=created:>2017-10-22&sort=stars&order=desc&page=";
 
-    public static final String RESPONSE_ERROR_403 = "Unexpected response code 403, probably blocked by the API";
-    public static final String EXCEPTION_NULL_RESPONSE = "Unexpected response code 403, Too many requests to the API";
+    public static final String RESPONSE_ERROR_403 =
+            "Unexpected response code 403, probably blocked by the API";
+    public static final String EXCEPTION_NULL_RESPONSE =
+            "Unexpected response code 403, Too many requests to the API";
 
     /**
      * this strings keys will be used to extract necessary fields from the response json
@@ -134,7 +138,9 @@ public class Utility {
      * ========================== SettingsFragment constants/methods ========================
      */
     // save integer values into the shared preferences
-    public static <T extends Object> void saveValueInSharedPreferences(Context context, String key, T value) {
+    public static <T extends Object> void saveValueInSharedPreferences(
+            Context context, String key, T value) {
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         if (value instanceof Integer)

@@ -104,8 +104,8 @@ public class Main extends AppCompatActivity {
                 .commit();
     }
 
-    private void displayFragmentReplace(FragmentManager manager, Fragment fragment, int containerResId) {
-
+    private void displayFragmentReplace(FragmentManager manager, Fragment fragment, int containerResId)
+    {
         manager.beginTransaction()
                 .replace(containerResId, fragment)
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)

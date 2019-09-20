@@ -42,11 +42,14 @@ public class SettingsFragment extends Fragment {
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
 
         context = container.getContext();
 
-        View rootView = LayoutInflater.from(context).inflate(R.layout.fragment_settings, container, false);
+        View rootView = LayoutInflater.from(context)
+                .inflate(R.layout.fragment_settings, container, false);
 
         unbinder = ButterKnife.bind(this, rootView);
 
