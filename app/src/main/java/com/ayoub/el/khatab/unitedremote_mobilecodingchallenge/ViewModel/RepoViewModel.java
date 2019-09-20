@@ -17,6 +17,8 @@ import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility;
 
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.API_REQUEST_DELAY_INTERVAL;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.INTERNET_UNAVAILABLE_ERROR;
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SHARED_PREFERENCES_CURRENT_PAGE;
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.getCurrentPage;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.getItemsPerPage;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.isConnected;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.isOnline;
@@ -24,15 +26,13 @@ import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Uti
 public class RepoViewModel extends AndroidViewModel {
 
     private Repository repository;
-    private int currentPage;
     private Context context;
-
+    private int currentPage;
 
     public RepoViewModel(@NonNull Application application) {
         super(application);
         context = application.getApplicationContext();
         repository = new Repository(application);
-        currentPage = Utility.getCurrentPage(application.getApplicationContext());
     }
 
     /**
@@ -46,8 +46,12 @@ public class RepoViewModel extends AndroidViewModel {
      */
     public LiveData<PagedList<Repo>> getAllReposPaged() {
 
+        int itemsPerPage = getItemsPerPage(
+                getApplication().getApplicationContext(),
+                Utility.SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY);
+
         return new LivePagedListBuilder<>(
-                repository.getReposPaged(), getItemsPerPage(getApplication().getApplicationContext()))
+                repository.getReposPaged(), itemsPerPage)
                 .setBoundaryCallback(new PagedList.BoundaryCallback<Repo>() {
                     @Override
                     public void onZeroItemsLoaded() {
@@ -72,9 +76,10 @@ public class RepoViewModel extends AndroidViewModel {
 
     /**
      * delete the given repo from database
+     *
      * @param repo
      */
-    public void delete(Repo repo){
+    public void delete(Repo repo) {
         repository.delete(repo);
     }
 
@@ -88,12 +93,20 @@ public class RepoViewModel extends AndroidViewModel {
         // check for active internet availability
         if (isConnected(context) && isOnline()) {
 
+            currentPage = getCurrentPage(
+                    getApplication(),
+                    SHARED_PREFERENCES_CURRENT_PAGE);
+
             // then make network request to the api
             // delay the request (milliseconds) to avoid being blocked by the api
             new Handler().postDelayed(() -> {
 
-                currentPage++;
                 repository.getRemoteRepos(currentPage);
+                currentPage++;
+                Utility.saveValueInSharedPreferences(
+                        getApplication(),
+                        SHARED_PREFERENCES_CURRENT_PAGE,
+                        currentPage);
 
             }, API_REQUEST_DELAY_INTERVAL);
 

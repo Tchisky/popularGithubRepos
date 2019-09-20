@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.R;
+import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility;
 import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.ViewModel.RepoViewModel;
 
 import butterknife.BindView;
@@ -22,7 +23,6 @@ import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY;
-import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.getItemsPerPage;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.saveValueInSharedPreferences;
 
 public class SettingsFragment extends Fragment {
@@ -57,7 +57,9 @@ public class SettingsFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        itemsPerPage = getItemsPerPage(getActivity());
+        itemsPerPage = Utility.getItemsPerPage(
+                getActivity(),
+                SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY);
 
         numberPicker.setMaxValue(30);
         numberPicker.setMinValue(10);

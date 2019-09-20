@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
@@ -61,6 +62,11 @@ public class Utility {
      * this string key will allow us to get saved items per page value from shared pref
      */
     public static final String SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY = "items_per_page";
+    /**
+     * this key will save the current page that we used to retrieve data from API
+     * must be incremented before being passed to the method, then saved.s
+     */
+    public static final String SHARED_PREFERENCES_CURRENT_PAGE = "current_page";
 
     /**
      * checks the availability of internet connectivity
@@ -102,16 +108,17 @@ public class Utility {
         }
     }
 
-    // get saved items per page
-    public static int getItemsPerPage(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, Context.MODE_PRIVATE);
-        return sharedPref.getInt(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, 10);
+
+    // get items per page from shared preferences
+    public static int getItemsPerPage(Context context, String key) {
+        SharedPreferences sharedPref = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPref.getInt(key, 30);
     }
 
-    // get saved items per page
-    public static int getCurrentPage(Context context) {
-        SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, Context.MODE_PRIVATE);
-        return sharedPref.getInt(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, 10);
+    // get current page from shared preferences
+    public static int getCurrentPage(Context context, String key) {
+        SharedPreferences sharedPref = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        return sharedPref.getInt(key, 1);
     }
 
     /**
@@ -127,9 +134,8 @@ public class Utility {
      * ========================== SettingsFragment constants/methods ========================
      */
     // save integer values into the shared preferences
-    public static <T extends Object> void saveValueInSharedPreferences(Activity activity, String key, T value) {
-
-        SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
+    public static <T extends Object> void saveValueInSharedPreferences(Context context, String key, T value) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(context);
         SharedPreferences.Editor editor = sharedPref.edit();
         if (value instanceof Integer)
             editor.putInt(key, (Integer) value);
