@@ -23,7 +23,7 @@ import butterknife.Unbinder;
 
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.getItemsPerPage;
-import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.saveItemsPerPage;
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.saveValueInSharedPreferences;
 
 public class SettingsFragment extends Fragment {
 
@@ -74,7 +74,7 @@ public class SettingsFragment extends Fragment {
         numberPicker.setOnScrollListener((numberPicker, scrollState) -> {
 
             if (scrollState == NumberPicker.OnScrollListener.SCROLL_STATE_IDLE) {
-                saveItemsPerPage(
+                saveValueInSharedPreferences(
                         getActivity(),
                         SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY,
                         numberPicker.getValue());

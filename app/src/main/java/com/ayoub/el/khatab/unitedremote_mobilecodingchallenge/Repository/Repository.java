@@ -1,9 +1,7 @@
 package com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Repository;
 
 import android.app.Application;
-import android.os.AsyncTask;
 
-import androidx.annotation.Nullable;
 import androidx.paging.DataSource;
 
 import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Model.Repo;
@@ -36,7 +34,7 @@ public class Repository {
      * @param repo
      */
     public void insert(Repo repo) {
-        new AsyncExecutor(repoDAO, ACTION_INSERT).execute(repo);
+        new AsyncTaskExecutor(repoDAO, ACTION_INSERT).execute(repo);
     }
 
 
@@ -45,14 +43,14 @@ public class Repository {
      * @param repo
      */
     public void delete(Repo repo){
-        new AsyncExecutor(repoDAO,ACTION_DELETE).execute(repo);
+        new AsyncTaskExecutor(repoDAO,ACTION_DELETE).execute(repo);
     }
 
     /**
      * clear all data from the database cache
      */
     public void deleteAllRepos() {
-        new AsyncExecutor(repoDAO, ACTION_DELETE_ALL).execute();
+        new AsyncTaskExecutor(repoDAO, ACTION_DELETE_ALL).execute();
     }
 
     /**
@@ -72,45 +70,5 @@ public class Repository {
      */
     public void getRemoteRepos(int page) {
         gitHubAPI.getReposList(this, page);
-    }
-
-
-    /**
-     * helper class to insert/delete/delete all/get all repos from the room database
-     * in the background thread
-     */
-    private static class AsyncExecutor extends AsyncTask<Repo, Void, Integer> {
-
-        private RepoDAO dao;
-        private String action;
-
-        AsyncExecutor(@Nullable RepoDAO dao, String action) {
-            this.dao = dao;
-            this.action = action;
-        }
-
-        @Override
-        protected Integer doInBackground(Repo... repos) {
-
-            switch (action) {
-
-                case ACTION_DELETE:
-                    dao.delete(repos[0]);
-                    return null;
-
-
-                case ACTION_INSERT:
-                    dao.insert(repos[0]);
-                    return null;
-
-
-                case ACTION_DELETE_ALL:
-                    dao.deleteAllRepos();
-                    return null;
-
-                default:
-                    return null;
-            }
-        }
     }
 }

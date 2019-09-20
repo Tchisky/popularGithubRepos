@@ -2,9 +2,12 @@ package com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class Utility {
 
@@ -105,6 +108,12 @@ public class Utility {
         return sharedPref.getInt(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, 10);
     }
 
+    // get saved items per page
+    public static int getCurrentPage(Context context) {
+        SharedPreferences sharedPref = context.getSharedPreferences(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, Context.MODE_PRIVATE);
+        return sharedPref.getInt(SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY, 10);
+    }
+
     /**
      * ========================== Repository constants/methods ========================
      */
@@ -118,11 +127,16 @@ public class Utility {
      * ========================== SettingsFragment constants/methods ========================
      */
     // save integer values into the shared preferences
-    public static void saveItemsPerPage(Activity activity, String key, int value) {
+    public static <T extends Object> void saveValueInSharedPreferences(Activity activity, String key, T value) {
 
         SharedPreferences sharedPref = activity.getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putInt(key, value);
+        if (value instanceof Integer)
+            editor.putInt(key, (Integer) value);
+        else if (value instanceof String)
+            editor.putString(key, String.valueOf(value));
+
         editor.apply();
+
     }
 }

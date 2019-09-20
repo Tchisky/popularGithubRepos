@@ -13,6 +13,7 @@ import androidx.paging.PagedList;
 
 import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Model.Repo;
 import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Repository.Repository;
+import com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility;
 
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.API_REQUEST_DELAY_INTERVAL;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.INTERNET_UNAVAILABLE_ERROR;
@@ -23,7 +24,7 @@ import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Uti
 public class RepoViewModel extends AndroidViewModel {
 
     private Repository repository;
-    private int currentPage = 0;
+    private int currentPage;
     private Context context;
 
 
@@ -31,6 +32,7 @@ public class RepoViewModel extends AndroidViewModel {
         super(application);
         context = application.getApplicationContext();
         repository = new Repository(application);
+        currentPage = Utility.getCurrentPage(application.getApplicationContext());
     }
 
     /**
