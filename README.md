@@ -4,7 +4,7 @@ Trending GitHub Repositories
 
 ## Overview of the app
 
-Android app that list all popular GitHub repositories, lists name, description, stars, owner name and owner avatar related to each repository.
+Android app that lists all popular GitHub repositories, lists name, description, stars, owner name and owner avatar related to each repository.
 
 ## Getting Started
 
@@ -12,7 +12,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install
+What things you need to have installed
 ```
 Android Studio 3.5 or higher
 Android SDK Platform 29
@@ -21,12 +21,12 @@ Java JDK 12
 
 ### Installing
 
-Simply import the project into android studio
+Simply import the project into android studio.
 
 ```
 Android studio>File>Open
 ```
-browse to the project folder and select open, then install any missing android sdk platform and you are good to go.
+Browse to the project folder and select open, then install any missing android sdk platforms and you are good to go.
 
 ## Architecture
 
@@ -36,31 +36,31 @@ browse to the project folder and select open, then install any missing android s
 ## Libraries used and why:
 
 #### [Paging Library](https://developer.android.com/topic/libraries/architecture/paging)
-To load data small chunks of data a time, rather than load all data at once
+To load small chunks of data a time, rather than load all data at once.
 
 #### [Glide](https://github.com/bumptech/glide)
-To load the repository owner avatar
+To retrieve and display the repository owner avatar.
 
 #### [Volley](https://developer.android.com/training/volley)
 To make network requests to GitHub API, since the response has load of fields and we only interested at some of 		them(name,description,stars,owner name,owner avatar) its better to use Volley StringRequest then parse the request to 		json object then extract only the fields needed, better than using Retrofit with JsonConverter which forces you to create 	class that contains all fields of the response, means more memory allocated.
 
 #### [Material Design](https://material.io/develop/android/docs/getting-started/)
-To use some components such as BottomNavigationView
+To use some components such as BottomNavigationView.
 
 #### [ViewModel](https://developer.android.com/topic/libraries/architecture/viewmodel)
-Part of Android Architecture Component, will contains all app background process, retrieve data, loading data, caching 	data, and also handle changes of activity/fragment lifecycle
+Will contains all app background process, retrieve data, loading data, caching 	data, and also handle changes of activity/fragment lifecycle.
 
 #### [Room Persistence Library](https://developer.android.com/topic/libraries/architecture/room)
 Part of Android Architecture Component as well, to cache retrieved data from the API
 
 #### [CirculeImageView](https://github.com/hdodenhof/CircleImageView)
-To display the repository owner avatar
+To display the repository owner avatar as circle image.
 
 #### [ButterKnife](https://jakewharton.github.io/butterknife/)
-To simplify binding and unbinding views
+To simplify binding and unbinding views.
 
 #### [LiveData](https://developer.android.com/topic/libraries/architecture/livedata)
-Part of Android Architecture Component as well, to continuesly watch data in cache database and instantly load it if any 	changes happened
+To continuesly listen data changes in cache database and instantly load it if any changes occurs.
 
 ## Features:
 
@@ -102,9 +102,8 @@ Part of Android Architecture Component as well, to continuesly watch data in cac
 
 ## How it works:
 	
-First at start of the app, it checks whether there is cached data in the local room database, if there is some, the it loads it N item per page(This N default value is 10, but can be changed in the settings), if no data is cached in the database then, it checks if there is an active internet connection to retrieve data from the GitHub API, if so them it makes network requests using Volley to get data, but before each request the page number that will be passed to the API is inceremented, then each request retrieves 30 item per page, each request is delayed by 1000 ms(1 second) to avoid getting blocked by the API, the data received is immediately inserted into the database, since we have liveData watching and listening on any changes on the database, it immediately loads it as PagedList into PagedListAdapter which handle displaying data in RecyclerView.
-	Trending repos page is a fragment as well as the settings.
+First,at start of the app, it checks whether there is cached data in the local room database, if there is some, the it loads it N item per page(This N default value is 10, but can be changed in the settings), if no data is cached in the database then, it checks if there is an active internet connection to retrieve data from the GitHub API, if so them it makes network requests using Volley to get data, but before each request the page number that will be passed to the API is inceremented, then each request retrieves 30 item per page, each request is delayed by 1000 ms(1 second) to avoid getting blocked by the API, the data received is immediately inserted into the database, since we have liveData watching and listening on any changes on the database, it immediately loads it as PagedList into PagedListAdapter which handle displaying data in RecyclerView.
 
 ## License
 
-This project is free to use for anyone.
+This project is free to use.
