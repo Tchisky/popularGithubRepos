@@ -22,6 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.DELETE_MESSAGE;
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SAVED_MESSAGE;
+import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SHARED_PREFERENCES_CURRENT_PAGE;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY;
 import static com.ayoub.el.khatab.unitedremote_mobilecodingchallenge.Utility.Utility.saveValueInSharedPreferences;
 
@@ -83,7 +86,7 @@ public class SettingsFragment extends Fragment {
                         getActivity(),
                         SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY,
                         numberPicker.getValue());
-                Toast.makeText(context, "Saved!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, SAVED_MESSAGE, Toast.LENGTH_SHORT).show();
             }
 
         });
@@ -98,8 +101,12 @@ public class SettingsFragment extends Fragment {
     private View.OnClickListener clearCacheClick = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            // clear sharedPreferences
+            Utility.clearValueFromSharedPreferences(context,SHARED_PREFERENCES_CURRENT_PAGE);
+            Utility.clearValueFromSharedPreferences(context,SHARED_PREFERENCES_ITEMS_PER_PAGE_KEY);
+            // clear cached data
             viewModel.deleteAllRepos();
-            Toast.makeText(context, "All repos deleted!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, DELETE_MESSAGE, Toast.LENGTH_SHORT).show();
         }
     };
 

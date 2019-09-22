@@ -73,6 +73,15 @@ public class Utility {
     public static final String SHARED_PREFERENCES_CURRENT_PAGE = "current_page";
 
     /**
+     * in case no saved value for current page, this value is used by default
+     */
+    public static final int DEFAULT_CURRENT_PAGE = 1;
+    /**
+     * in case no saved value for No of items per page, this value is used by default
+     */
+    public static final int DEFAULT_ITEMS_PER_PAGE = 30;
+
+    /**
      * checks the availability of internet connectivity
      *
      * @return boolean, determine whether the device has and internet connectivity
@@ -116,13 +125,21 @@ public class Utility {
     // get items per page from shared preferences
     public static int getItemsPerPage(Context context, String key) {
         SharedPreferences sharedPref = context.getSharedPreferences(key, Context.MODE_PRIVATE);
-        return sharedPref.getInt(key, 30);
+        return sharedPref.getInt(key, DEFAULT_ITEMS_PER_PAGE);
     }
 
     // get current page from shared preferences
     public static int getCurrentPage(Context context, String key) {
         SharedPreferences sharedPref = context.getSharedPreferences(key, Context.MODE_PRIVATE);
-        return sharedPref.getInt(key, 1);
+        return sharedPref.getInt(key, DEFAULT_CURRENT_PAGE);
+    }
+
+    // remove a value from shared preferences
+    public static void clearValueFromSharedPreferences(Context context, String key) {
+        SharedPreferences sharedPref = context.getSharedPreferences(key, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.remove(key);
+        editor.apply();
     }
 
     /**
@@ -137,6 +154,10 @@ public class Utility {
     /**
      * ========================== SettingsFragment constants/methods ========================
      */
+
+    public static final String SAVED_MESSAGE = "Saved!";
+    public static final String DELETE_MESSAGE = "All repos deleted!";
+
     // save integer values into the shared preferences
     public static <T extends Object> void saveValueInSharedPreferences(
             Context context, String key, T value) {
